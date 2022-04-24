@@ -6,7 +6,8 @@ from avtomoika1 import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('carwash.urls'))
+    path('', include('carwash.urls'), name='carwash'),
+    path('auth/', include('authentication.urls'), name='authentication'),
 ]
 
 

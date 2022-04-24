@@ -1,3 +1,7 @@
 django
 pillow
 psycopg2
+django-debug-toolbar
+ckeditor
+django-extensions
+easy-thumbnails

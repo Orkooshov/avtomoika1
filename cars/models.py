@@ -59,6 +59,17 @@ class CarCoverage(models.Model):
         verbose_name_plural = 'Покрытия'
 
 
+class CarClass(models.Model):
+    name = models.CharField(max_length=128)
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name = 'Класс'
+        verbose_name_plural = 'Классы'
+
+
 class Car(AbstractTimestampedModel):
     brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
     model = models.ForeignKey(CarModel, on_delete=models.CASCADE)
@@ -67,6 +78,7 @@ class Car(AbstractTimestampedModel):
     coverage = models.ForeignKey(CarCoverage, on_delete=models.CASCADE)
     owner = models.ForeignKey('profiles.Client', on_delete=models.CASCADE)
     state_number = models.CharField(max_length=20, verbose_name='Госномер')
+    car_class = models.ForeignKey(CarClass, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.state_number

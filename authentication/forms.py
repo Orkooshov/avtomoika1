@@ -17,3 +17,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = user_model
         fields = ('email',)
+
+
+class LoginForm(auth_forms.AuthenticationForm):
+    pass

@@ -1,0 +1,16 @@
+{% extends 'carwash/base.html' %}
+{% load static %}
+{% block main %}
+<section class="hello position-relative overflow-hidden">
+    <img src="{% static 'carwash/landing-bg.jpg' %}" width="100%" class="position-absolute" alt="background" style="filter: brightness(0.4)">
+    <div class="container py-5 mt-5 d-flex align-items-center flex-column text-light" >
+        <h1 class="display-6 mb-4" >Чистая машина за 10 минут</h1>
+        <div class="d-flex mb-5">
+            <p class="m-0 py-1 px-3 mx-1 border rounded">Быстро</p>
+            <p class="m-0 py-1 px-3 mx-1 border rounded">Безопасно</p>
+            <p class="m-0 py-1 px-3 mx-1 border rounded">Недорого</p>
+        </div>
+        <a href="{% url 'about' %}" class="btn btn-lg btn-primary">Подробнее</a>
+    </div>
+</section>
+{% endblock %}

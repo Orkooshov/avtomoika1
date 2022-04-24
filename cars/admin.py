@@ -3,7 +3,7 @@ from cars import models as m
 
 
 @admin.register(m.CarBodywork, m.CarBrand, m.CarCoverage,
-                m.CarModel, m.CarSalon)
+                m.CarModel, m.CarSalon, m.CarClass)
 class DefaultAdmin(admin.ModelAdmin):
     list_display = ('name', )
     search_fields = ('name', )
@@ -11,6 +11,6 @@ class DefaultAdmin(admin.ModelAdmin):
 
 @admin.register(m.Car)
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('brand', 'model', 'bodywork', 'salon', 'coverage', 'owner', 'state_number')
-    list_filter = ('brand', 'model', 'bodywork', 'salon', 'coverage', 'owner')
+    list_display = ('brand', 'model', 'car_class', 'bodywork', 'salon', 'coverage', 'owner', 'state_number')
+    list_filter = ('brand', 'model', 'car_class', 'bodywork', 'salon', 'coverage', 'owner')
     search_fields = ('state_number', )
