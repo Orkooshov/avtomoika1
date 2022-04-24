@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'avtomoika1.urls'
+ROOT_URLCONF = 'conf.urls'
 
 AUTH_USER_MODEL = 'authentication.User'
 
@@ -62,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'avtomoika1.wsgi.application'
+WSGI_APPLICATION = 'conf.wsgi.application'
 
 
 # Database
