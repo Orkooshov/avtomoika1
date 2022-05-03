@@ -1,33 +1,64 @@
-from django.views.generic import TemplateView
-from django.contrib.auth import login, logout, authenticate
+from django.views.generic import FormView, UpdateView, DetailView
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.conf import settings
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
-from core.mixins import ExtraContextMixin
-from authentication.forms import LoginForm
+from authentication.forms import (LoginForm, RegisterForm, UserEditForm, 
+    CustomPasswordChangeForm)
 
 
-class LoginView(TemplateView, ExtraContextMixin):
+User = get_user_model()
+
+
+class LoginView(FormView):
     template_name = 'authentication/login.html'
-    form = LoginForm()
-    extra_context = {
-        'form': form
-    }
+    form_class = LoginForm
+    success_url = settings.LOGIN_REDIRECT_URL
 
-    def post(self, request, *args, **kwargs):
-        self.form = LoginForm(request, data=request.POST)
-        if self.form.is_valid():
-            user = authenticate(request, **self.form.cleaned_data)
-            login(request, user)
-        if request.user.is_authenticated:
-            return redirect(settings.LOGIN_REDIRECT_URL)
-        return self.get(request, *args, **kwargs)
+    def form_valid(self, form):
+        user = authenticate(self.request, **form.cleaned_data)
+        login(self.request, user)
+        return super().form_valid(form)
 
 
-class RegisterView(TemplateView):
+class RegisterView(FormView):
     template_name = 'authentication/register.html'
+    form_class = RegisterForm
+    success_url = settings.LOGIN_REDIRECT_URL
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
 
 
 def logout_view(request):
     logout(request)
     return redirect(settings.LOGOUT_REDIRECT_URL)
+
+
+class UserEditView(UpdateView):
+    template_name = 'authentication/user_edit.html'
+    form_class = UserEditForm
+    success_url = reverse_lazy('user_edit')
+    
+    def get_object(self):
+        return self.request.user
+
+
+class UserDetailView(DetailView):
+    template_name = 'authentication/user_detail.html'
+    model = User
+
+    def get_object(self):
+        return self.request.user
+
+
+class PasswordChangeView(UpdateView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'authentication/password.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user

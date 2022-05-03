@@ -1,5 +1,6 @@
-from tabnanny import verbose
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 from core.models import AbstractTimestampedModel
 
@@ -76,9 +77,20 @@ class Car(AbstractTimestampedModel):
     bodywork = models.ForeignKey(CarBodywork, on_delete=models.CASCADE)
     salon = models.ForeignKey(CarSalon, on_delete=models.CASCADE)
     coverage = models.ForeignKey(CarCoverage, on_delete=models.CASCADE)
-    owner = models.ForeignKey('profiles.Client', on_delete=models.CASCADE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     state_number = models.CharField(max_length=20, verbose_name='Госномер')
     car_class = models.ForeignKey(CarClass, on_delete=models.CASCADE)
+    
+    def get_absolute_url(self):
+        return reverse('car_detail', kwargs={'pk': self.pk})
+    
+    def get_car_class(self):
+        if self.car_class is not None:
+            return self.car_class
+        return 'Не определен'
+    
+    def get_readable_name(self):
+        return f'{self.brand} {self.model} ({self.state_number})'
 
     def __str__(self) -> str:
         return self.state_number

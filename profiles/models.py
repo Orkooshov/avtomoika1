@@ -14,7 +14,7 @@ class AbstractProfile(AbstractTimestampedModel):
         abstract = True
 
 
-class Client(AbstractProfile):
+class ClientProfile(AbstractProfile):
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
@@ -22,5 +22,5 @@ class Client(AbstractProfile):
 
 class Staff(AbstractProfile):
     class Meta:
-        verbose_name = 'Рабочий'
-        verbose_name_plural = 'Рабочие'
+        verbose_name = 'Работник'
+        verbose_name_plural = 'Работники'

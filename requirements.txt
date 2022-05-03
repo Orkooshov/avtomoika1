@@ -5,3 +5,4 @@ django-debug-toolbar
 ckeditor
 django-extensions
 easy-thumbnails
+django-crispy-forms
