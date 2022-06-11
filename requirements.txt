@@ -2,7 +2,8 @@ django
 pillow
 psycopg2
 django-debug-toolbar
-ckeditor
+# ckeditor
 django-extensions
 easy-thumbnails
 django-crispy-forms
+mssql-django

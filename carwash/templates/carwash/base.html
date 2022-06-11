@@ -44,10 +44,9 @@
                         <strong>{{ user.username }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="{% url 'personal_account' %}">Личный кабинет</a></li>
                         <li><a class="dropdown-item" href="{% url 'user_detail' %}">Профиль</a></li>
                         <li><a class="dropdown-item" href="{% url 'car_list' %}">Автомобили</a></li>
-                        <li><a class="dropdown-item" href="{% url 'orders' %}">Заказы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'order_list' %}">Заказы</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

@@ -17,6 +17,6 @@ class PriceAdmin(admin.ModelAdmin):
 
 @admin.register(m.Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('client', 'car', 'created_at', 'updated_at')
-    list_filter = ('service', 'service', 'created_at', 'updated_at')
+    list_display = ('client', 'car', 'is_payed', 'status', 'created_at', 'updated_at')
+    list_filter = ('price', 'status', 'created_at', 'updated_at')
     search_fields = ('client', 'car')

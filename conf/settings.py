@@ -72,15 +72,37 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'pgsql': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'avtomoika1',
+    #     'HOST': '127.0.0.1',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234'
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'avtomoika1',
         'HOST': '127.0.0.1',
-        'USER': 'postgres',
-        'PASSWORD': '1234'
-    }
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'PORT': '3306'
+    },
+    # 'default': {
+    #     'ENGINE': 'mssql',
+    #     'NAME': 'avtomoika1',
+    #     'HOST': 'localhost\SQLEXPRESS',
+    #     'USER': 'root',
+    #     'PASSWORD': '1234',
+    #     "OPTIONS": {
+    #         "driver": "ODBC Driver 17 for SQL Server", 
+    #     },
+    # }
 }
 
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

@@ -1,0 +1,28 @@
+{% extends 'carwash/base.html' %}
+{% block main %}
+<main>
+    <table class="table table-striped table-hover">
+        <tr class="table-primary">
+            <th>Услуга</th>
+            <th>Авто</th>
+            <th>Оплачен</th>
+            <th>Состояние</th>
+            <th>Сумма</th>
+        </tr>
+        {% for order in orders %}
+        <tr onclick="window.location='{{ order.get_absolute_url }}';" style="cursor: pointer;">
+            <td>{{ order.price.service }}</td>
+            <td>{{ order.car }}</td>
+            <td>{{ order.is_payed }}</td>
+            <td>{{ order.get_status_display }}</td>
+            <td>{{ order.get_sum }}</td>
+        </tr>
+        {% empty %}
+        Пусто
+        {% endfor %}
+    </table>
+    <div class="container">
+        <a href="{% url 'order_create' %}" class="btn btn-primary mb-3">Оформить заказ</a>
+    </div>
+</main>
+{% endblock %}

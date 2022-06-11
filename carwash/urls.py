@@ -8,7 +8,9 @@ urlpatterns = [
     path('contacts/', v.ContactsView.as_view(), name='contacts'),
     path('about/', v.AboutView.as_view(), name='about'),
     path('prices/', v.PricesView.as_view(), name='prices'),
-    path('personal-account/', lambda x: HttpResponse('личный кабинет'), name='personal_account'),
-    path('orders/', lambda x: HttpResponse('orders'), name='orders'),
+    # path('personal-account/', lambda x: HttpResponse('личный кабинет'), name='personal_account'),
+    path('orders/', v.OrderListView.as_view(), name='order_list'),
+    path('orders/add/', lambda: 1, name='order_create'),
+    path('orders/<int:pk>/', v.OrderDetailView.as_view(), name='order_detail'),
     path('test', v.test)
 ]

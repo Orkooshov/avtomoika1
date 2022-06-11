@@ -1,0 +1,27 @@
+{% extends 'carwash/base.html' %}
+{% block main %}
+<main>
+    <table class="table">
+        <tr>
+            <td>Услуга</td>
+            <td>{{ order.price.service }}</td>
+        </tr>
+        <tr>
+            <td>Авто</td>
+            <td>{{ order.car }}</td>
+        </tr>
+        <tr>
+            <td>Оплачен</td>
+            <td>{{ order.is_payed }}</td>
+        </tr>
+        <tr>
+            <td>Состояние</td>
+            <td>{{ order.get_status_display }}</td>
+        </tr>
+        <tr>
+            <td>Сумма</td>
+            <td>{{ order.get_sum }}</td>
+        </tr>
+    </table>
+</main>
+{% endblock %}
