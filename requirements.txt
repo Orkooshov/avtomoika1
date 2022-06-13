@@ -7,3 +7,10 @@ django-extensions
 easy-thumbnails
 django-crispy-forms
 mssql-django
+
+
+ВК ТГ - доделать
+журнал по услугам
+отчеты за период
+фотки
+связаться с нами

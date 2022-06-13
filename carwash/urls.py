@@ -10,7 +10,7 @@ urlpatterns = [
     path('prices/', v.PricesView.as_view(), name='prices'),
     # path('personal-account/', lambda x: HttpResponse('личный кабинет'), name='personal_account'),
     path('orders/', v.OrderListView.as_view(), name='order_list'),
-    path('orders/add/', lambda: 1, name='order_create'),
+    path('orders/create/', v.OrderCreateView.as_view(), name='order_create'),
     path('orders/<int:pk>/', v.OrderDetailView.as_view(), name='order_detail'),
     path('test', v.test)
 ]

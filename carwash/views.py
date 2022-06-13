@@ -1,5 +1,7 @@
+import imp
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from carwash.models import Service
@@ -49,3 +51,12 @@ class OrderDetailView(generic.DetailView):
 
     def get_queryset(self):
         return self.request.user.order_set.all()
+
+
+class OrderCreateView(generic.CreateView):
+    template_name = 'carwash/order_create.html'
+    success_url = reverse_lazy('order_list')
+    from carwash.models import Order
+    # form_class = 
+    queryset = Order.objects.all()
+    fields = '__all__'

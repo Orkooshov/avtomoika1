@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from authentication.forms import (LoginForm, RegisterForm, UserEditForm, 
-    CustomPasswordChangeForm)
+    CustomPasswordChangeForm, ClientProfileEditForm)
 
 
 User = get_user_model()
@@ -45,7 +45,9 @@ class UserEditView(UpdateView):
     
     def get_object(self):
         return self.request.user
-
+    
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 class UserDetailView(DetailView):
     template_name = 'authentication/user_detail.html'

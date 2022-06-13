@@ -3,6 +3,16 @@
 <main>
     <section class="p-4">
         <div class="container">
+            <h3>Какие работы выполняем?</h3>
+            <p>Моем, чистим, полируем, тонируем, оклеиваем антигравийной пленкой, делаем винилографию, ламинирование,
+                устраняем неприятные запахи.</p>
+
+            <p>Удаляем царапины, ремонтируем мелкие вмятины (без покраски), делаем химчистку салона и комплексную
+                предпродажную подготовку, используем технологии нано-косметики «Koch». Выполняем прочие работы по уходу
+                за внешним видом автомобилей. Среди перечня услуг в нашем автокомплексе появился шиномонтаж, детейлинг и
+                ремонт дисков с применением аргонной сварки.</p>
+        </div>
+        <div class="container">
             <h3>Наши преимущества</h3>
             <ul>
                 <li>Во-первых, мы отвечаем за качество услуг. Все мастера является материально ответственным, именно
@@ -32,6 +42,53 @@
         <strong class="d-block">Мы рады всем, кто хочет изменить облик своего авто, выделиться из потока и придать
             индивидуальности своему автомобилю!</strong>
         <strong class="d-block">Будьте на шаг впереди!</strong>
+        <div class="charts d-flex flex-row justify-content-center">
+            <div class="p-2" style="width: 50vh;">
+                <h5 class="text-center">Довольных клиентов</h5>
+                <canvas id="myChart">Your browser does not support the canvas element.</canvas>
+            </div>
+            <div class="p-2" style="width: 50vh;">
+                <h5 class="text-center">Обратились снова</h5>
+                <canvas id="myChart2">Your browser does not support the canvas element.</canvas>
+            </div>
+        </div>
+        <script>
+            const data = {
+                datasets: [{
+                    label: 'Довольных клиентов',
+                    backgroundColor: ['rgb(255, 99, 132)', '#ffffff'],
+                    data: [87, 13],
+                }]
+            };
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                }
+            };
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+            const config2 = {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        label: 'Обратились снова',
+                        backgroundColor: ['rgb(255, 99, 132)', '#ffffff'],
+                        data: [73, 27],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            };
+            const myChart2 = new Chart(
+                document.getElementById('myChart2'),
+                config2
+            )
+        </script>
     </section>
 </main>
 {% endblock %}

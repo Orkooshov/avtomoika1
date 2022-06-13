@@ -2,64 +2,75 @@
 {% load static %}
 {% block title %} Автомойка №1 {% endblock %}
 {% block header %}
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <a class="navbar-brand" href="{% url 'home' %}">&nbsp;
-        <img src="{% static 'logo.png' %}" alt="logo" height="40">
-        &nbsp;Автомойка №1
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
-        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container-lg">
-        <div class="collapse navbar-collapse " id="navbarsExample04">
-            <ul class="navbar-nav col-9">
-                <li class="nav-item">
-                    <a class="nav-link 
+<div>
+    <a href="http://t.me/"><i class="fa fa-telegram"></i></a>
+    <a href="http://vk.com/id152687816/"><i class="fa fa-vk"></i></a>
+    <a href="http://fb.com/"><i class="fa fa-facebook"></i></a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <a class="navbar-brand" href="{% url 'home' %}">&nbsp;
+            <img src="{% static 'logo.png' %}" alt="logo" height="40">
+            &nbsp;Автомойка
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+            aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container-lg">
+            <div class="collapse navbar-collapse " id="navbarsExample04">
+                <ul class="navbar-nav col-9">
+                    <li class="nav-item">
+                        <a class="nav-link 
                     {% if header_selected_index == 0 %} text-warning {% else %} text-light {% endif %}"
-                        href="{% url 'home' %}">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link
+                            href="{% url 'home' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link
                     {% if header_selected_index == 1 %} text-warning {% else %} text-light {% endif %}"
-                        href="{% url 'prices' %}">Цены</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link 
+                            href="{% url 'prices' %}">Цены</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link 
                     {% if header_selected_index == 2 %} text-warning {% else %} text-light {% endif %}"
-                        href="{% url 'about' %}">О нас</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link 
+                            href="{% url 'about' %}">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link 
                     {% if header_selected_index == 3 %} text-warning {% else %} text-light {% endif %}"
-                        href="{% url 'contacts' %}">Контакты</a>
-                </li>
-            </ul>
-            <div class="col ml-auto">
-                {% if user.is_authenticated %}
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{% static 'profiles/user.png' %}" alt="profile image" width="32" height="32" class="rounded-circle me-2">
-                        <strong>{{ user.username }}</strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="{% url 'user_detail' %}">Профиль</a></li>
-                        <li><a class="dropdown-item" href="{% url 'car_list' %}">Автомобили</a></li>
-                        <li><a class="dropdown-item" href="{% url 'order_list' %}">Заказы</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
-                    </ul>
+                            href="{% url 'contacts' %}">Контакты</a>
+                    </li>
+                </ul>
+                <div class="col ml-auto">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.is_staff %}
+                            <img src="{% static 'profiles/user.png' %}" alt="profile image" width="32" height="32"
+                                class="rounded-circle me-2">
+                            {% else %}
+                            <img src="{{ user.clientprofile.photo.url }}" alt="profile image" width="32" height="32"
+                                class="rounded-circle me-2">
+                            {% endif %}
+                            <strong>{{ user.username }}</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="{% url 'user_detail' %}">Профиль</a></li>
+                            <li><a class="dropdown-item" href="{% url 'car_list' %}">Автомобили</a></li>
+                            <li><a class="dropdown-item" href="{% url 'order_list' %}">Заказы</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-warning">Войти</a>
+                    {% endif %}
                 </div>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-warning">Войти</a>
-                {% endif %}
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
 {% endblock %}
 {% block main %} {% endblock %}
 {% block footer %}

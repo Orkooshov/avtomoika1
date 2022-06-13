@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth import forms as auth_forms
 
+from profiles.models import ClientProfile
+
 
 user_model = get_user_model()
 
@@ -23,6 +25,12 @@ class CustomUserChangeForm(UserChangeForm):
 
 class LoginForm(auth_forms.AuthenticationForm):
     pass
+
+
+class ClientProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ClientProfile
+        fields = ('photo', )
 
 
 class UserEditForm(auth_forms.UserChangeForm):
