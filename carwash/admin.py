@@ -20,3 +20,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('client', 'car', 'is_payed', 'status', 'created_at', 'updated_at')
     list_filter = ('price', 'status', 'created_at', 'updated_at')
     search_fields = ('client', 'car')
+
+
+@admin.register(m.CallApplication)
+class CallApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone_number')
+    search_fields = ('name', 'email', 'phone_number')

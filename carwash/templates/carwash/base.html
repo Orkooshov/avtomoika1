@@ -2,10 +2,35 @@
 {% load static %}
 {% block title %} Автомойка №1 {% endblock %}
 {% block header %}
-<div>
-    <a href="http://t.me/"><i class="fa fa-telegram"></i></a>
-    <a href="http://vk.com/id152687816/"><i class="fa fa-vk"></i></a>
-    <a href="http://fb.com/"><i class="fa fa-facebook"></i></a>
+<div class="bg-light">
+    <div class="container top d-flex justify-content-between py-2">
+        <div class="brand d-flex flex-column">
+            <a class="text-decoration-none link-dark" href="{% url 'home' %}" style="font-size: 24px;">
+                <img src="{% static 'logo.png' %}" alt="logo" height="60">
+                &nbsp;Автомойка
+            </a>
+            <a class="link link-dark" href="{% url 'contacts' %}">Москва, Бакунинская улица, 81</a>
+        </div>
+        <style>
+            .social-links {
+                font-size: 32px;
+                margin-right: 10px;
+            }
+
+            .phone-number {
+                font-size: 18px;
+            }
+        </style>
+        <div class="right">
+            <p class="mb-0 phone-number">+7 (916) 123-15-15</p>
+            <p class="mb-0 phone-number">+7 (916) 123-15-16</p>
+            <div class="links">
+                <a href="http://t.me/" class="social-links"><i class="fa fa-telegram"></i></a>
+                <a href="http://vk.com/id152687816/" class="social-links"><i class="fa fa-vk"></i></a>
+                <a href="http://fb.com/" class="social-links"><i class="fa fa-facebook"></i></a>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <a class="navbar-brand" href="{% url 'home' %}">&nbsp;
             <img src="{% static 'logo.png' %}" alt="logo" height="40">
@@ -75,8 +100,23 @@
 {% block main %} {% endblock %}
 {% block footer %}
 <footer class="footer bg-light">
-    <div class="container d-flex justify-content-center p-3">
-        <span>© Автомойка №1</span>
+    <div class="botttom container py-4">
+        <div class="brand d-flex flex-column">
+            <a class="text-decoration-none link-dark my-2" href="{% url 'home' %}" style="font-size: 24px;">
+                <img src="{% static 'logo.png' %}" alt="logo" height="60">
+                &nbsp;Автомойка
+            </a>
+            <a class="link link-dark my-3" href="{% url 'contacts' %}">Москва, Бакунинская улица, 81</a>
+        </div>
+            <div class="links">
+                <a href="http://t.me/" class="social-links"><i class="fa fa-telegram"></i></a>
+                <a href="http://vk.com/id152687816/" class="social-links"><i class="fa fa-vk"></i></a>
+                <a href="http://fb.com/" class="social-links"><i class="fa fa-facebook"></i></a>
+            </div>
+        <div class="right">
+            <p class="mb-1 phone-number">+7 (916) 123-15-15</p>
+            <p class="mb-1 phone-number">+7 (916) 123-15-16</p>
+        </div>
     </div>
 </footer>
 {% endblock %}

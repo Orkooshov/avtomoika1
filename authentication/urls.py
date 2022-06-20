@@ -10,5 +10,5 @@ urlpatterns = [
     path('register/', v.RegisterView.as_view(), name='register'),
     path('edit/', v.UserEditView.as_view(), name='user_edit'),
     path('detail/', v.UserDetailView.as_view(), name='user_detail'),
-    path('password/', v.PasswordChangeView.as_view(), name='password_edit')
+    path('password/', v.PasswordChangeView.as_view(), name='password_edit'),
 ]

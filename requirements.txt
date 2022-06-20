@@ -7,10 +7,13 @@ django-extensions
 easy-thumbnails
 django-crispy-forms
 mssql-django
+djangorestframework
 
 
-ВК ТГ - доделать
+связаться с нами
 журнал по услугам
 отчеты за период
 фотки
-связаться с нами
+
+чек СТО
+if order.is_payed: payed_at = timezone.now()

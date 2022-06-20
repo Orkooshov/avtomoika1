@@ -53,12 +53,13 @@ class Order(AbstractTimestampedModel):
                             on_delete=models.CASCADE)
     is_payed = models.BooleanField(verbose_name='Оплачен', default=False)
     status = models.IntegerField(verbose_name='Состояние', choices=OrderStatus.choices, default=0)
+    payed_at = models.DateTimeField(verbose_name='Дата оплаты', blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('order_detail', kwargs={'pk': self.pk})
 
     def get_sum(self):
-        return '1234'
+        return self.price.price
 
     def __str__(self) -> str:
         return f'{self.client} {self.car}'
@@ -66,3 +67,14 @@ class Order(AbstractTimestampedModel):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+
+class CallApplication(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=16)
+    msg = models.TextField()
+
+    class Meta:
+        verbose_name = 'Обратная связь'
+        verbose_name_plural = 'Обратная связь'
