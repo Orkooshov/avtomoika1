@@ -32,7 +32,7 @@
         </div>
     </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <a class="navbar-brand" href="{% url 'home' %}">&nbsp;
+        <a class="navbar-brand h4 my-auto" href="{% url 'home' %}">&nbsp;
             <img src="{% static 'logo.png' %}" alt="logo" height="40">
             &nbsp;Автомойка
         </a>
@@ -44,23 +44,23 @@
             <div class="collapse navbar-collapse " id="navbarsExample04">
                 <ul class="navbar-nav col-9">
                     <li class="nav-item">
-                        <a class="nav-link 
-                    {% if header_selected_index == 0 %} text-warning {% else %} text-light {% endif %}"
+                        <a class="nav-link h5
+                    {% if header_selected_index == 0 %} text-warning {% else %} text-white {% endif %}"
                             href="{% url 'home' %}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link
-                    {% if header_selected_index == 1 %} text-warning {% else %} text-light {% endif %}"
+                        <a class="nav-link h5
+                    {% if header_selected_index == 1 %} text-warning {% else %} text-white {% endif %}"
                             href="{% url 'prices' %}">Цены</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link 
-                    {% if header_selected_index == 2 %} text-warning {% else %} text-light {% endif %}"
+                        <a class="nav-link h5
+                    {% if header_selected_index == 2 %} text-warning {% else %} text-white {% endif %}"
                             href="{% url 'about' %}">О нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link 
-                    {% if header_selected_index == 3 %} text-warning {% else %} text-light {% endif %}"
+                        <a class="nav-link h5
+                    {% if header_selected_index == 3 %} text-warning {% else %} text-white {% endif %}"
                             href="{% url 'contacts' %}">Контакты</a>
                     </li>
                 </ul>
@@ -69,14 +69,8 @@
                     <div class="dropdown">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            {% if user.is_staff %}
-                            <img src="{% static 'profiles/user.png' %}" alt="profile image" width="32" height="32"
-                                class="rounded-circle me-2">
-                            {% else %}
-                            <img src="{{ user.clientprofile.photo.url }}" alt="profile image" width="32" height="32"
-                                class="rounded-circle me-2">
-                            {% endif %}
-                            <strong>{{ user.username }}</strong>
+                            <img src="{{ user.photo.url }}" alt="profile_image" width="32" height="32" class="rounded-circle me-2">
+                            <strong class="h5">{{ user.username }}</strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="{% url 'user_detail' %}">Профиль</a></li>

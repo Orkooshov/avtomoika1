@@ -72,14 +72,14 @@ class CarClass(models.Model):
 
 
 class Car(AbstractTimestampedModel):
-    brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
-    model = models.ForeignKey(CarModel, on_delete=models.CASCADE)
-    bodywork = models.ForeignKey(CarBodywork, on_delete=models.CASCADE)
-    salon = models.ForeignKey(CarSalon, on_delete=models.CASCADE)
-    coverage = models.ForeignKey(CarCoverage, on_delete=models.CASCADE)
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE, verbose_name='Марка')
+    model = models.ForeignKey(CarModel, on_delete=models.CASCADE, verbose_name='Модель')
+    bodywork = models.ForeignKey(CarBodywork, on_delete=models.CASCADE, verbose_name='Кузов')
+    salon = models.ForeignKey(CarSalon, on_delete=models.CASCADE, verbose_name='Салон')
+    coverage = models.ForeignKey(CarCoverage, on_delete=models.CASCADE, verbose_name='Покрытие')
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Владелец')
     state_number = models.CharField(max_length=20, verbose_name='Госномер')
-    car_class = models.ForeignKey(CarClass, on_delete=models.CASCADE)
+    car_class = models.ForeignKey(CarClass, on_delete=models.CASCADE, verbose_name='Класс авто')
     
     def get_absolute_url(self):
         return reverse('car_detail', kwargs={'pk': self.pk})

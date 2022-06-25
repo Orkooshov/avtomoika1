@@ -22,6 +22,8 @@ class User(AbstractUser):
                                     validators=[validate_phone_number])
     gender = models.CharField('Пол', max_length=1,
                               choices=Gender.choices, blank=True)
+    photo = models.ImageField(
+        'Фото', blank=True, upload_to='avatars/', default='avatars/user.png')
 
     def get_absolute_url(self):
         return reverse('user_detail', kwargs={'username': self.username})
@@ -34,3 +36,10 @@ class User(AbstractUser):
     
     def get_first_order_date(self):
         return self.order_set.order_by('created_at').first().created_at
+    
+    def is_client(self):
+        try:
+            self.clientprofile
+            return True
+        except:
+            return False

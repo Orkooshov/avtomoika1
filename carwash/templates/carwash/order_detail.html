@@ -11,8 +11,8 @@
             <td>{{ order.car }}</td>
         </tr>
         <tr>
-            <td>Оплачен</td>
-            <td>{{ order.is_payed }}</td>
+            <td>Оплачено</td>
+            <td>{% if order.is_payed %} Да {% else %} Нет {% endif %}</td>
         </tr>
         <tr>
             <td>Состояние</td>
@@ -23,5 +23,14 @@
             <td>{{ order.get_sum }}</td>
         </tr>
     </table>
+    {% if not order.is_payed and order.status != status_cancelled %}
+    <a href="{% url 'order_pay' order.pk %}" class="btn btn-primary">Оплатить</a>
+    {% endif %}
+    {% if order.status != status_cancelled and not order.is_payed %}
+    <a href="{% url 'order_cancel' order.pk %}" class="btn btn-danger">Отменить</a>
+    {% endif %}
+    {% if order.is_payed %}
+    <a href="{% url 'order_cheque' order.pk %}" class="btn btn-primary">Просмотреть чек</a>
+    {% endif %}
 </main>
 {% endblock %}

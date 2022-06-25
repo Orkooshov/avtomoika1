@@ -1,5 +1,6 @@
+from django import views
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.utils import timezone
@@ -9,10 +10,10 @@ from django.db.models import Sum
 from carwash.models import Service, OrderStatus
 from core.mixins import ExtraContextMixin
 from carwash import forms as f
+from carwash.utils import get_order_total_sum
+from carwash.models import OrderStatus
+from carwash import models as m
 
-
-def test(request):
-    return HttpResponse(str(request.user))
 
 class AboutView(generic.TemplateView):
     template_name = 'carwash/about.html'
@@ -33,11 +34,14 @@ class HomeView(generic.TemplateView, ExtraContextMixin):
         'header_selected_index': 0
     }
 
-class ContactsView(generic.TemplateView):
+class ContactsView(generic.CreateView):
     template_name = 'carwash/contacts.html'
     extra_context = {
-        'header_selected_index': 3
+        'header_selected_index': 3,
     }
+    model = m.CallApplication
+    success_url = reverse_lazy('contacts')
+    fields = '__all__'
 
 
 class OrderListView(generic.ListView):
@@ -51,12 +55,12 @@ class OrderListView(generic.ListView):
         if self.is_report():
             return self.template_name_report
         return self.template_name
-    def get_order_total_sum(self):
-        orders = self.get_queryset()
-        sum = 0
-        for i in orders:
-            sum += i.price.price
-        return sum
+    # def get_order_total_sum(self):
+    #     orders = self.get_queryset()
+    #     sum = 0
+    #     for i in orders:
+    #         sum += i.price.price
+    #     return sum
 
     def get_date_range_default(self):
         date1 = self.request.user.get_first_order_date()
@@ -80,7 +84,7 @@ class OrderListView(generic.ListView):
         date1, date2 = self.get_date_range()
         context['date_from'], context['date_until'] = (
             date1.strftime(r'%Y-%m-%d'), date2.strftime(r'%Y-%m-%d'))
-        context['total_sum'] = self.get_order_total_sum()
+        context['total_sum'] = get_order_total_sum(self.get_queryset())
         context['today'] = timezone.now()
         return context
 
@@ -97,17 +101,19 @@ class OrderListView(generic.ListView):
 class OrderDetailView(generic.DetailView):
     template_name = 'carwash/order_detail.html'
     context_object_name = 'order'
+    extra_context = {
+        'status_cancelled': m.OrderStatus.CANCELED
+    }
 
     def get_queryset(self):
         return self.request.user.order_set.all()
 
 
 class OrderCreateView(generic.CreateView):
-    from carwash.models import Order
     template_name = 'carwash/order_create.html'
     success_url = reverse_lazy('order_list')
     form_class = f.OrderCreateForm
-    queryset = Order.objects.all()
+    queryset = m.Order.objects.all()
 
     def get_form(self, form_class=None):
         from cars.models import Car
@@ -124,3 +130,56 @@ class OrderCreateView(generic.CreateView):
             'status': OrderStatus.NOT_DONE
         }
         return ret
+
+
+def order_pay(request, pk):
+    order = get_object_or_404(m.Order, pk=pk)
+    order.is_payed = True
+    order.save()
+    print(order.payed_at)
+    return redirect(reverse_lazy('order_list'))
+
+def order_cancel(request, pk):
+    order = get_object_or_404(m.Order, pk=pk)
+    order.status = m.OrderStatus.CANCELED
+    order.save()
+    return redirect(reverse_lazy('order_detail', kwargs={'pk': pk}))
+
+def cheque(request, pk):
+    order = get_object_or_404(m.Order, pk=pk)
+    context = {
+        'order': order
+    }
+    return render(request, 'carwash/cheque.html', context)
+
+
+class CallApplicationCreateView(generic.CreateView):
+    from carwash.models import CallApplication
+    template_name = 'carwash/call_application.html'
+    # success_url = 
+    form_class = f.CallApplicationForm
+    queryset = CallApplication.objects.all()
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        print(form)
+        return form
+
+
+def contactless_wash(request):
+    return render(request, 'carwash/contactless_wash.html')
+
+def complex_wash(request):
+    return render(request, 'carwash/complex_wash.html')
+
+def nano_wash(request):
+    return render(request, 'carwash/nano_wash.html')
+
+def ceramic_wash(request):
+    return render(request, 'carwash/ceramic_wash.html')
+
+def bottom_wash(request):
+    return render(request, 'carwash/bottom_wash.html')
+
+def engine_wash(request):
+    return render(request, 'carwash/engine_wash.html')

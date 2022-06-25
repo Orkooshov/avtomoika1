@@ -5,7 +5,8 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from authentication.forms import (LoginForm, RegisterForm, UserEditForm, 
-    CustomPasswordChangeForm, ClientProfileEditForm)
+    CustomPasswordChangeForm)
+from profiles.forms import ClientProfileForm
 
 
 User = get_user_model()
@@ -16,8 +17,15 @@ class LoginView(FormView):
     form_class = LoginForm
     success_url = settings.LOGIN_REDIRECT_URL
 
+    def get_success_url(self) -> str:
+        if self.request.user.is_superuser:
+            return '/fff/'
+        return super().get_success_url()
+
     def form_valid(self, form):
         user = authenticate(self.request, **form.cleaned_data)
+        # if user.is_superuser:
+        #     return self.form_invalid(self.get_form())
         login(self.request, user)
         return super().form_valid(form)
 
@@ -35,7 +43,7 @@ class RegisterView(FormView):
 
 def logout_view(request):
     logout(request)
-    return redirect(settings.LOGOUT_REDIRECT_URL)
+    return redirect('/')
 
 
 class UserEditView(UpdateView):
@@ -45,9 +53,7 @@ class UserEditView(UpdateView):
     
     def get_object(self):
         return self.request.user
-    
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+
 
 class UserDetailView(DetailView):
     template_name = 'authentication/user_detail.html'

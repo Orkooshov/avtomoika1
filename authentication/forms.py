@@ -27,18 +27,12 @@ class LoginForm(auth_forms.AuthenticationForm):
     pass
 
 
-class ClientProfileEditForm(forms.ModelForm):
-    class Meta:
-        model = ClientProfile
-        fields = ('photo', )
-
-
 class UserEditForm(auth_forms.UserChangeForm):
     password = None
     class Meta:
         model = user_model
         fields = ('username', 'email', 'last_name', 'first_name', 'middle_name',
-            'phone_number', 'gender',)
+            'phone_number', 'gender', 'photo')
 
 
 class RegisterForm(UserCreationForm):

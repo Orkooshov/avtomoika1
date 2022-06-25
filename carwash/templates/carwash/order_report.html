@@ -30,7 +30,7 @@
                 <td>{{ order.price.service }}</td>
                 <td>{{ order.car }}</td>
                 <td>{{ order.created_at }}</td>
-                <td>{% if order.is_payed %} Да {% else %} Нет {% endif %}</td>
+                <td>{% if order.is_payed %} Да ({{ order.payed_at }}) {% else %} Нет {% endif %}</td>
                 <td>{{ order.get_status_display }}</td>
                 <td>{{ order.get_sum }}</td>
             </tr>
